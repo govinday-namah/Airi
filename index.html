@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#10131b" />
-    <meta name="description" content="Airi — your caring, elegant, and strict personal assistant." />
+    <meta name="description" content="Airi — your elegant, caring, strict personal assistant." />
     <title>Airi</title>
-    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icons/icon-192.svg" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -18,7 +18,7 @@
           <div class="brand-dot">A</div>
           <div class="brand-name">Airi</div>
         </div>
-        <button id="installBtn" class="install-btn hidden">Install</button>
+        <button id="installBtn" class="install-btn hidden" aria-label="Install app">Install</button>
       </header>
 
       <main class="screen active" id="home-screen">
@@ -26,8 +26,8 @@
           <div class="hero-row">
             <div class="avatar">A</div>
             <div class="hero-copy">
-              <div class="greeting">Good morning, love. I’ve already mapped your day.</div>
-              <div class="status">You’re on track today. I’ve kept your priorities clear.</div>
+              <div id="greetingLine" class="greeting">Good morning, love. I’ve already mapped your day.</div>
+              <div id="statusLine" class="status">You’re on track today. I’ve kept your priorities clear.</div>
             </div>
           </div>
         </section>
@@ -35,13 +35,9 @@
         <section class="card panel">
           <div class="panel-header">
             <h2>Top priorities</h2>
-            <span class="pill">3 active</span>
+            <span id="priorityCount" class="pill">3 active</span>
           </div>
-          <ul class="priority-list">
-            <li><span class="dot"></span>Finalize project proposal</li>
-            <li><span class="dot"></span>Prepare presentation</li>
-            <li><span class="dot"></span>Plan the evening routine</li>
-          </ul>
+          <ul id="priorityList" class="priority-list"></ul>
         </section>
 
         <section class="card panel">
@@ -49,29 +45,7 @@
             <h2>Schedule</h2>
             <span class="pill">Today</span>
           </div>
-          <div class="schedule-list">
-            <div class="schedule-item">
-              <div class="icon-box">◔</div>
-              <div>
-                <div class="schedule-title">Focus block</div>
-                <div class="schedule-time">09:00 - 10:30</div>
-              </div>
-            </div>
-            <div class="schedule-item">
-              <div class="icon-box">◌</div>
-              <div>
-                <div class="schedule-title">Meeting prep</div>
-                <div class="schedule-time">10:45 - 11:00</div>
-              </div>
-            </div>
-            <div class="schedule-item">
-              <div class="icon-box">✦</div>
-              <div>
-                <div class="schedule-title">Lunch break</div>
-                <div class="schedule-time">13:00 - 13:30</div>
-              </div>
-            </div>
-          </div>
+          <div id="scheduleList" class="schedule-list"></div>
         </section>
       </main>
 
@@ -82,38 +56,13 @@
             <span class="pill">Airi plan</span>
           </div>
 
-          <div class="task-item">
-            <div class="task-left">
-              <span class="task-check"></span>
-              <div>
-                <div class="task-title">Finish project proposal</div>
-                <div class="task-sub">Work</div>
-              </div>
-            </div>
-            <div class="task-time">11:00</div>
+          <div class="task-form">
+            <input id="taskTitleInput" type="text" placeholder="New task title" />
+            <input id="taskTimeInput" type="text" placeholder="Time (e.g. 18:00)" />
+            <button id="addTaskBtn">Add task</button>
           </div>
 
-          <div class="task-item">
-            <div class="task-left">
-              <span class="task-check"></span>
-              <div>
-                <div class="task-title">Buy groceries</div>
-                <div class="task-sub">Personal</div>
-              </div>
-            </div>
-            <div class="task-time">18:00</div>
-          </div>
-
-          <div class="task-item">
-            <div class="task-left">
-              <span class="task-check"></span>
-              <div>
-                <div class="task-title">Workout</div>
-                <div class="task-sub">Health</div>
-              </div>
-            </div>
-            <div class="task-time">19:00</div>
-          </div>
+          <div id="taskList" class="task-list"></div>
         </section>
       </main>
 
@@ -128,21 +77,16 @@
             <div class="avatar-large">A</div>
             <div class="avatar-copy">
               <div class="avatar-name">Airi</div>
-              <div class="avatar-status">You’re on track today.</div>
+              <div id="assistantStatus" class="avatar-status">You’re on track today.</div>
             </div>
           </div>
 
           <div class="quick-card">
             <div class="quick-badge">A</div>
-            <div class="quick-text">Your next task is in 20 minutes.</div>
+            <div id="quickMessage" class="quick-text">Your next task is in 20 minutes.</div>
           </div>
 
-          <div class="chat-box" id="chatBox">
-            <div class="msg ai">Good morning, love. I’ve already mapped your day.</div>
-            <div class="msg ai">You have three priorities and one recovery block.</div>
-            <div class="msg user">Airi, what should I prioritize?</div>
-            <div class="msg ai">Start with the proposal. I’ve protected your focus time.</div>
-          </div>
+          <div id="chatBox" class="chat-box"></div>
 
           <div class="input-row">
             <input id="chatInput" type="text" placeholder="Tell Airi what you need" />
@@ -164,7 +108,7 @@
               <div class="setting-sub">Enable voice assistance</div>
             </div>
             <label class="switch">
-              <input type="checkbox" checked />
+              <input id="voiceToggle" type="checkbox" checked />
               <span class="slider"></span>
             </label>
           </div>
@@ -175,7 +119,7 @@
               <div class="setting-sub">Firm reminders and accountability</div>
             </div>
             <label class="switch">
-              <input type="checkbox" checked />
+              <input id="strictToggle" type="checkbox" checked />
               <span class="slider"></span>
             </label>
           </div>
@@ -186,7 +130,7 @@
               <div class="setting-sub">Quick glance on your screen</div>
             </div>
             <label class="switch">
-              <input type="checkbox" checked />
+              <input id="lockToggle" type="checkbox" checked />
               <span class="slider"></span>
             </label>
           </div>
